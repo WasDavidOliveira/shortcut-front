@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,9 +23,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
+      <Navbar />
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-black"></div>
       
-      <div className="relative flex items-center justify-center min-h-screen px-4">
+      <div className="relative flex items-center justify-center min-h-screen px-4 pt-20">
         <div className="max-w-md w-full">
           <div className="text-center mb-12">
             <Link href="/" className="inline-block mb-8 group">
@@ -139,6 +142,7 @@ export default function Login() {
         </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 } 
