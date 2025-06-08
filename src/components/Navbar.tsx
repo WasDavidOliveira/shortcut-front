@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,22 +60,46 @@ export default function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              href="/login"
-              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-all duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900"
-            >
-              Entrar
-            </Link>
-            <Link
-              href="/register"
-              className={`px-6 py-2 font-medium rounded-lg transition-all duration-200 ${
-                isScrolled
-                  ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
-                  : "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 shadow-lg hover:shadow-xl"
-              }`}
-            >
-              Começar Grátis
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-all duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900"
+                >
+                  Dashboard
+                </Link>
+                <div className="flex items-center space-x-3">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Olá, {user?.name}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 font-medium transition-all duration-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+                  >
+                    Sair
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-all duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  href="/register"
+                  className={`px-6 py-2 font-medium rounded-lg transition-all duration-200 ${
+                    isScrolled
+                      ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
+                      : "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 shadow-lg hover:shadow-xl"
+                  }`}
+                >
+                  Começar Grátis
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -114,20 +140,48 @@ export default function Navbar() {
         >
           <div className="pt-4 pb-2 space-y-4 border-t border-gray-200 dark:border-gray-800 mt-4">
             <div className="space-y-2">
-              <Link
-                href="/login"
-                className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Entrar
-              </Link>
-              <Link
-                href="/register"
-                className="block px-4 py-2 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 font-medium rounded-lg transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Começar Grátis
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="px-4 py-2">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Olá, {user?.name}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                  >
+                    Sair
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Entrar
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="block px-4 py-2 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 font-medium rounded-lg transition-colors duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Começar Grátis
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
