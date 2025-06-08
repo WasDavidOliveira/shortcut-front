@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer className="relative bg-gradient-to-t from-gray-50 to-white dark:from-gray-950 dark:to-black border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4 py-16">
@@ -18,7 +20,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4 mt-6">
               <a 
-                href="https://github.com" 
+                href="https://github.com/WasDavidOliveira/shortcut-front" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-800 dark:hover:to-gray-700 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
@@ -54,7 +56,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-all duration-200 flex items-center">
+                <a href="https://github.com/WasDavidOliveira/shortcut-front" target="_blank" rel="noopener noreferrer" className="group text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white text-sm transition-all duration-200 flex items-center">
                   <span className="w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full mr-2 group-hover:bg-black dark:group-hover:bg-white transition-colors"></span>
                   GitHub
                 </a>
@@ -69,7 +71,7 @@ export default function Footer() {
           <div className="relative pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-gray-500 dark:text-gray-500 text-sm bg-gradient-to-r from-gray-600 to-gray-500 dark:from-gray-400 dark:to-gray-500 bg-clip-text text-transparent">
-                © 2024 Shortcut. Projeto open source minimalista.
+                © {currentYear} Shortcut. Projeto open source minimalista.
               </p>
               <div className="flex items-center space-x-2">
                 <span className="text-xs text-gray-400 dark:text-gray-600">Feito com</span>
